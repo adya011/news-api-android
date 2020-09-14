@@ -46,8 +46,12 @@ class ArticleListFragment : Fragment(), ArticleAdapter.ArticleClickListener {
         setObserver()
     }
 
-    private fun setupView(){
+    private fun setupView() {
         rvArticle.clickListener = this
+        rvArticle.onLoadMoreItemListener = { page ->
+            articleViewModel.viewState = articleViewModel.viewState.copy(page = page)
+            fetchNews()
+        }
     }
 
     private fun fetchNews() {

@@ -50,13 +50,14 @@ class ArticleViewModel(
 
     private fun fetchNews() {
         val sourceId = viewState.sourceId
+        val page = viewState.page
 
         viewModelScope.launch {
             _state.value = ArticleState.Loading
 
             _state.value =
                 try {
-                    ArticleState.News(repository.getArticles(sourceId))
+                    ArticleState.News(repository.getArticles(sourceId, page))
                 } catch (e: Exception) {
                     ArticleState.Error(e.localizedMessage)
                 }

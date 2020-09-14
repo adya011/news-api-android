@@ -9,8 +9,8 @@ import com.nanda.axiataassignment.util.Constants
 class NewsRepositoryImpl(private val apiService: ApiService, context: Context) :
     NewsRepository {
 
-    override suspend fun getArticles(srouces: String?): ArticleResponse {
-        return apiService.everything(sources = srouces, pageSize = 10, apiKey = Constants.apiKey)
+    override suspend fun getArticles(srouces: String?, page: Int): ArticleResponse {
+        return apiService.everything(sources = srouces, page = page, pageSize = 10, apiKey = Constants.apiKey)
     }
 
     override suspend fun getSources(category: String?): SourceResponse {

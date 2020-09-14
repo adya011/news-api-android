@@ -9,6 +9,7 @@ interface ApiService {
     @GET("everything")
     suspend fun everything(
         @Query("q") q: String? = null,
+        @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
         @Query("from") from: String? = null,
         @Query("to") to: String? = null,

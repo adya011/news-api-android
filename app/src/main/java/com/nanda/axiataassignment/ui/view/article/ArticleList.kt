@@ -15,7 +15,13 @@ class ArticleList(context: Context, attributeSet: AttributeSet) :
 
     private val layoutManager = LinearLayoutManager(context)
     private val adapter = ArticleAdapter(arrayListOf(), this)
+
+    private var paginationTotalItemCount = 0
+    private var paginationPage = 1
+    private var paginationMaxPage = Int.MAX_VALUE
+
     var clickListener: ArticleAdapter.ArticleClickListener? = null
+    var onLoadMoreItemListener: ((page: Int) -> Unit)? = null
 
     fun addData(list: List<Article>) {
         adapter.addData(list)
@@ -31,16 +37,17 @@ class ArticleList(context: Context, attributeSet: AttributeSet) :
 
                 val visibleItemCount = layoutManager.childCount
                 val totalItemCount = layoutManager.itemCount
-                var firstVisibleItems: IntArray? = null
+                var firstVisibleItems: Int? = null
                 var visibleItemThreshold = 0
 
-                if (firstVisibleItems != null && firstVisibleItems.isNotEmpty()) {
-                    visibleItemThreshold = firstVisibleItems[0]
+                firstVisibleItems = layoutManager.findFirstVisibleItemPosition()
+
+                if (firstVisibleItems != null) {
+                    visibleItemThreshold = firstVisibleItems
                 }
 
                 if (visibleItemCount + visibleItemThreshold >= totalItemCount) {
-                    /*isLoadingMore = true
-                    onLoadMoreItemListener?.invoke(paginationPage + 1)*/
+                    onLoadMoreItemListener?.invoke(paginationPage + 1)
                 }
             }
         })

@@ -4,7 +4,7 @@ import com.nanda.axiataassignment.data.model.ArticleResponse
 
 data class ArticleViewState(
     val sourceId: String? = null,
-    val page: Int = 0
+    val page: Int = 1
 )
 
 sealed class ArticleState {
