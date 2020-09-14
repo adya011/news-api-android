@@ -10,6 +10,6 @@ data class ArticleViewState(
 sealed class ArticleState {
     object Idle : ArticleState()
     object Loading : ArticleState()
-    data class News(val article: ArticleResponse) : ArticleState()
+    data class Success(val article: ArticleResponse) : ArticleState()
     data class Error(val error: String?) : ArticleState()
 }

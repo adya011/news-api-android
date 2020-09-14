@@ -57,7 +57,7 @@ class ArticleViewModel(
 
             _state.value =
                 try {
-                    ArticleState.News(repository.getArticles(sourceId, page))
+                    ArticleState.Success(repository.getArticles(sourceId, page))
                 } catch (e: Exception) {
                     ArticleState.Error(e.localizedMessage)
                 }
