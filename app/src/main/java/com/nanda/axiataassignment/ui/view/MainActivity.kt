@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.base.BaseHelper
+import com.nanda.axiataassignment.ui.view.category.CategoryListFragment
 
 class MainActivity : AppCompatActivity(), BaseHelper {
 
@@ -13,7 +14,8 @@ class MainActivity : AppCompatActivity(), BaseHelper {
 
         startFragment(
             this,
-            R.id.fl_main, CategoryListFragment(),
+            R.id.fl_main,
+            CategoryListFragment(),
             isAddToBackStack = false
         )
     }

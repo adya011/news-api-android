@@ -1,4 +1,4 @@
-package com.nanda.axiataassignment.ui.view
+package com.nanda.axiataassignment.ui.view.category
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.base.BaseHelper
 import com.nanda.axiataassignment.data.model.NewsCategory
 import com.nanda.axiataassignment.ui.adapter.CategoryAdapter
+import com.nanda.axiataassignment.ui.view.source.SourceListFragment
 import com.nanda.axiataassignment.util.Constants
 import kotlinx.android.synthetic.main.fragment__category.*
 
@@ -53,7 +54,10 @@ class CategoryListFragment : Fragment(),
     override fun onCategorySelected(categoryName: String) {
         startFragment(
             requireActivity() as AppCompatActivity,
-            R.id.fl_main, SourceListFragment.newInstance(categoryName),
+            R.id.fl_main,
+            SourceListFragment.newInstance(
+                categoryName
+            ),
             isAddFragment = true
         )
     }

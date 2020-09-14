@@ -10,7 +10,10 @@ import com.nanda.axiataassignment.data.model.Article
 import com.nanda.axiataassignment.util.loadImage
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class ArticleAdapter(private val articles: ArrayList<Article>) :
+class ArticleAdapter(
+    private val articles: ArrayList<Article>,
+    val listener: ArticleClickListener
+) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
     fun addData(list: List<Article>) {
@@ -38,7 +41,16 @@ class ArticleAdapter(private val articles: ArrayList<Article>) :
                 }
                 tvArticleTitle.text = article.title
                 tvDescription.text = article.content
+                article.url?.let { url ->
+                    setOnClickListener {
+                        listener.onArticleSelected(url)
+                    }
+                }
             }
         }
+    }
+
+    interface ArticleClickListener {
+        fun onArticleSelected(url: String)
     }
 }

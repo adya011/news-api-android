@@ -1,5 +1,6 @@
-package com.nanda.axiataassignment.ui.view
+package com.nanda.axiataassignment.ui.view.article
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,8 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.ui.adapter.ArticleAdapter
 import com.nanda.axiataassignment.ui.intent.ArticleIntent
+import com.nanda.axiataassignment.ui.view.WebViewActivity
 import com.nanda.axiataassignment.ui.viewmodel.ArticleViewModel
 import com.nanda.axiataassignment.ui.viewstate.ArticleState
+import com.nanda.axiataassignment.util.gone
+import com.nanda.axiataassignment.util.visible
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,14 +23,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val ARG_SOURCE_ID = "source_id"
 
-class ArticleListFragment : Fragment() {
+class ArticleListFragment : Fragment(), ArticleAdapter.ArticleClickListener {
 
     private val articleViewModel: ArticleViewModel by viewModel()
-    private var articleAdapter = ArticleAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        articleViewModel.viewState = articleViewModel.viewState.copy(sources = getSourceId())
+        articleViewModel.viewState = articleViewModel.viewState.copy(sourceId = getSourceId())
     }
 
     override fun onCreateView(
@@ -43,8 +46,8 @@ class ArticleListFragment : Fragment() {
         setObserver()
     }
 
-    private fun setupView() {
-        rvArticle.adapter = articleAdapter
+    private fun setupView(){
+        rvArticle.clickListener = this
     }
 
     private fun fetchNews() {
@@ -62,21 +65,28 @@ class ArticleListFragment : Fragment() {
             articleViewModel.state.collect {
                 when (it) {
                     is ArticleState.Idle -> {
-
+                        pbSources.gone()
                     }
                     is ArticleState.Loading -> {
-                        Log.d("nandaDebug", "loading...")
+                        pbSources.visible()
                     }
                     is ArticleState.News -> {
-                        Log.d("nandaDebug", "get data article: ${it.article.articles.size}")
-                        articleAdapter.addData(it.article.articles)
+                        pbSources.gone()
+                        rvArticle.addData(it.article.articles)
                     }
                     is ArticleState.Error -> {
-                        Log.d("nandaDebug", "error: ${it.error}")
+                        pbSources.gone()
                     }
                 }
             }
         }
+    }
+
+    override fun onArticleSelected(url: String) {
+        startActivity(Intent(requireActivity(), WebViewActivity::class.java).apply {
+            putExtra(WebViewActivity.WEB_VIEW_URL, url)
+        })
+
     }
 
     companion object {

@@ -1,7 +1,6 @@
-package com.nanda.axiataassignment.ui.view
+package com.nanda.axiataassignment.ui.view.source
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,16 @@ import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.base.BaseHelper
 import com.nanda.axiataassignment.ui.adapter.SourceAdapter
 import com.nanda.axiataassignment.ui.intent.SourceIntent
+import com.nanda.axiataassignment.ui.view.article.ArticleListFragment
 import com.nanda.axiataassignment.ui.viewmodel.SourceViewModel
 import com.nanda.axiataassignment.ui.viewstate.SourceState
-import com.nanda.axiataassignment.ui.viewstate.SourceViewState
-import kotlinx.android.synthetic.main.fragment_article_list.*
+import com.nanda.axiataassignment.util.gone
+import com.nanda.axiataassignment.util.visible
+import kotlinx.android.synthetic.main.fragment_article_list.rvArticle
+import kotlinx.android.synthetic.main.fragment_source_list.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import javax.xml.transform.Source
 
 const val ARG_CATEGORY_NAME = "category_name"
 
@@ -48,7 +49,7 @@ class SourceListFragment : Fragment(), SourceAdapter.SourceClickListener, BaseHe
     }
 
     private fun setupView() {
-        rvArticle.adapter = sourceAdapter
+        rvSource.adapter = sourceAdapter
     }
 
     private fun fetchNews() {
@@ -66,17 +67,17 @@ class SourceListFragment : Fragment(), SourceAdapter.SourceClickListener, BaseHe
             sourceViewModel.state.collect {
                 when (it) {
                     is SourceState.Idle -> {
-                        Log.d("nandaDebug", "idle")
+                        pbArticle.gone()
                     }
                     is SourceState.Loading -> {
-                        Log.d("nandaDebug", "loading...")
+                        pbArticle.visible()
                     }
                     is SourceState.Success -> {
-                        Log.d("nandaDebug", "get data source: ${it.data.sources.size}")
+                        pbArticle.gone()
                         sourceAdapter.addData(it.data.sources)
                     }
                     is SourceState.Error -> {
-                        Log.d("nandaDebug", "error: ${it.error}")
+                        pbArticle.gone()
                     }
                 }
             }

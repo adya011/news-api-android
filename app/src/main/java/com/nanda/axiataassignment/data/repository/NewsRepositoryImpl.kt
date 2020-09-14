@@ -10,7 +10,7 @@ class NewsRepositoryImpl(private val apiService: ApiService, context: Context) :
     NewsRepository {
 
     override suspend fun getArticles(srouces: String?): ArticleResponse {
-        return apiService.everything(sources = srouces, apiKey = Constants.apiKey)
+        return apiService.everything(sources = srouces, pageSize = 10, apiKey = Constants.apiKey)
     }
 
     override suspend fun getSources(category: String?): SourceResponse {

@@ -49,7 +49,7 @@ class ArticleViewModel(
     }
 
     private fun fetchNews() {
-        val sourceId = viewState.sources
+        val sourceId = viewState.sourceId
 
         viewModelScope.launch {
             _state.value = ArticleState.Loading
