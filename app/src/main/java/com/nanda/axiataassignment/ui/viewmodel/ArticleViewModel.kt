@@ -42,13 +42,13 @@ class ArticleViewModel(
         viewModelScope.launch {
             userIntent.consumeAsFlow().collect {
                 when (it) {
-                    is ArticleIntent.FetchArticle -> fetchNews()
+                    is ArticleIntent.FetchArticle -> fetchArticle()
                 }
             }
         }
     }
 
-    private fun fetchNews() {
+    private fun fetchArticle() {
         val sourceId = viewState.sourceId
         val page = viewState.page
 

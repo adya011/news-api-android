@@ -41,7 +41,7 @@ class ArticleListFragment : Fragment(), ArticleAdapter.ArticleClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        fetchNews()
+        fetchArticleIntent()
         setObserver()
     }
 
@@ -49,11 +49,11 @@ class ArticleListFragment : Fragment(), ArticleAdapter.ArticleClickListener {
         rvArticle.clickListener = this
         rvArticle.onLoadMoreItemListener = { page ->
             articleViewModel.viewState = articleViewModel.viewState.copy(page = page)
-            fetchNews()
+            fetchArticleIntent()
         }
     }
 
-    private fun fetchNews() {
+    private fun fetchArticleIntent() {
         lifecycleScope.launch {
             articleViewModel.userIntent.send(ArticleIntent.FetchArticle)
         }
