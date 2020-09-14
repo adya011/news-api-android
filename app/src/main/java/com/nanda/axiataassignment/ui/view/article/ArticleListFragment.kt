@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.ui.adapter.ArticleAdapter
@@ -13,6 +14,7 @@ import com.nanda.axiataassignment.ui.intent.ArticleIntent
 import com.nanda.axiataassignment.ui.view.WebViewActivity
 import com.nanda.axiataassignment.ui.viewmodel.ArticleViewModel
 import com.nanda.axiataassignment.ui.viewstate.ArticleState
+import com.nanda.axiataassignment.util.Constants
 import com.nanda.axiataassignment.util.gone
 import com.nanda.axiataassignment.util.visible
 import kotlinx.android.synthetic.main.fragment_article_list.*
@@ -79,6 +81,11 @@ class ArticleListFragment : Fragment(), ArticleAdapter.ArticleClickListener {
                     }
                     is ArticleState.Error -> {
                         pbSources.gone()
+                        Toast.makeText(
+                            context,
+                            "${Constants.error} : ${it.error}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

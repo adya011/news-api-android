@@ -12,5 +12,6 @@ class Constants {
         const val technology = "technology"
 
         const val source_id_missing = "Source id is missing!"
+        const val error = "Error: "
     }
 }

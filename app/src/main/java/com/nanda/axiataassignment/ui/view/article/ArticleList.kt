@@ -2,13 +2,10 @@ package com.nanda.axiataassignment.ui.view.article
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nanda.axiataassignment.data.model.Article
-import com.nanda.axiataassignment.data.model.Source
 import com.nanda.axiataassignment.ui.adapter.ArticleAdapter
-import com.nanda.axiataassignment.ui.adapter.SourceAdapter
 
 class ArticleList(context: Context, attributeSet: AttributeSet) :
     RecyclerView(context, attributeSet), ArticleAdapter.ArticleClickListener {
