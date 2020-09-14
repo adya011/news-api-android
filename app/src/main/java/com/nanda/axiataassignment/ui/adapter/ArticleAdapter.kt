@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.data.model.Article
-import com.nanda.axiataassignment.data.model.NewsCategory
+import com.nanda.axiataassignment.util.loadImage
 import kotlinx.android.synthetic.main.item_article.view.*
-import kotlinx.android.synthetic.main.item_category.view.*
 
 class ArticleAdapter(private val articles: ArrayList<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
@@ -33,7 +33,11 @@ class ArticleAdapter(private val articles: ArrayList<Article>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(article: Article) {
             with(itemView) {
-                textViewArticleName.text = article.title
+                article.urlToImage?.let {
+                    ivArticle.loadImage(article.urlToImage, R.mipmap.ic_launcher)
+                }
+                tvArticleTitle.text = article.title
+                tvDescription.text = article.content
             }
         }
     }

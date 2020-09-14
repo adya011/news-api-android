@@ -12,6 +12,7 @@ interface ApiService {
         @Query("from") from: String? = null,
         @Query("to") to: String? = null,
         @Query("sortBy") sortBy: String? = null,
+        @Query("sources") sources: String? = null,
         @Query("apiKey") apiKey: String? = null
     ): ArticleResponse
 

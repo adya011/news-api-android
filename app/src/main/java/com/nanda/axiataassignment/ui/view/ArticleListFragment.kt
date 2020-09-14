@@ -23,13 +23,10 @@ class ArticleListFragment : Fragment() {
 
     private val articleViewModel: ArticleViewModel by viewModel()
     private var articleAdapter = ArticleAdapter(arrayListOf())
-    private var sourceId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            sourceId = it.getString(ARG_SOURCE_ID)
-        }
+        articleViewModel.viewState = articleViewModel.viewState.copy(sources = getSourceId())
     }
 
     override fun onCreateView(
@@ -54,6 +51,10 @@ class ArticleListFragment : Fragment() {
         lifecycleScope.launch {
             articleViewModel.userIntent.send(ArticleIntent.FetchArticle)
         }
+    }
+
+    private fun getSourceId(): String? {
+        return arguments?.getString(ARG_SOURCE_ID)
     }
 
     private fun setObserver() {

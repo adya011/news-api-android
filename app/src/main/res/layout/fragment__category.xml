@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/light_blue"
     tools:context=".ui.view.CategoryListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCategory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="14dp" />
 
 </FrameLayout>

@@ -5,4 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="charcoal_grey">#36454f</color>
+    <color name="gray">#B6B6B6</color>
+    <color name="light_blue">#FAFCFF</color>
 </resources>

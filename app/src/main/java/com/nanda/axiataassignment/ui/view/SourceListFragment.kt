@@ -10,16 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.nanda.axiataassignment.R
 import com.nanda.axiataassignment.base.BaseHelper
-import com.nanda.axiataassignment.data.model.Article
 import com.nanda.axiataassignment.ui.adapter.SourceAdapter
-import com.nanda.axiataassignment.ui.intent.ArticleIntent
 import com.nanda.axiataassignment.ui.intent.SourceIntent
 import com.nanda.axiataassignment.ui.viewmodel.SourceViewModel
 import com.nanda.axiataassignment.ui.viewstate.SourceState
+import com.nanda.axiataassignment.ui.viewstate.SourceViewState
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.xml.transform.Source
 
 const val ARG_CATEGORY_NAME = "category_name"
 
@@ -27,13 +27,10 @@ class SourceListFragment : Fragment(), SourceAdapter.SourceClickListener, BaseHe
 
     private val sourceViewModel: SourceViewModel by viewModel()
     private var sourceAdapter = SourceAdapter(arrayListOf(), this)
-    private var categoryName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            categoryName = it.getString(ARG_CATEGORY_NAME)
-        }
+        sourceViewModel.viewState = sourceViewModel.viewState.copy(category = getCategoryName())
     }
 
     override fun onCreateView(
@@ -60,6 +57,10 @@ class SourceListFragment : Fragment(), SourceAdapter.SourceClickListener, BaseHe
         }
     }
 
+    private fun getCategoryName(): String? {
+        return arguments?.getString(ARG_CATEGORY_NAME)
+    }
+
     private fun setObserver() {
         lifecycleScope.launch {
             sourceViewModel.state.collect {
@@ -70,9 +71,9 @@ class SourceListFragment : Fragment(), SourceAdapter.SourceClickListener, BaseHe
                     is SourceState.Loading -> {
                         Log.d("nandaDebug", "loading...")
                     }
-                    is SourceState.News -> {
-                        Log.d("nandaDebug", "get data source: ${it.news.sources.size}")
-                        sourceAdapter.addData(it.news.sources)
+                    is SourceState.Success -> {
+                        Log.d("nandaDebug", "get data source: ${it.data.sources.size}")
+                        sourceAdapter.addData(it.data.sources)
                     }
                     is SourceState.Error -> {
                         Log.d("nandaDebug", "error: ${it.error}")
@@ -92,7 +93,7 @@ class SourceListFragment : Fragment(), SourceAdapter.SourceClickListener, BaseHe
 
     companion object {
         fun newInstance(category: String) =
-            ArticleListFragment().apply {
+            SourceListFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_CATEGORY_NAME, category)
                 }

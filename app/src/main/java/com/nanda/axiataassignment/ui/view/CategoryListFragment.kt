@@ -22,11 +22,12 @@ class CategoryListFragment : Fragment(),
 
     private val categoryList: List<NewsCategory> =
         listOf(
-            NewsCategory(1, Constants.entertainment),
-            NewsCategory(2, Constants.general),
-            NewsCategory(3, Constants.health),
-            NewsCategory(4, Constants.science),
-            NewsCategory(5, Constants.sports)
+            NewsCategory(Constants.entertainment),
+            NewsCategory(Constants.general),
+            NewsCategory(Constants.health),
+            NewsCategory(Constants.science),
+            NewsCategory(Constants.sports),
+            NewsCategory(Constants.technology)
         )
 
     override fun onCreateView(
@@ -52,7 +53,7 @@ class CategoryListFragment : Fragment(),
     override fun onCategorySelected(categoryName: String) {
         startFragment(
             requireActivity() as AppCompatActivity,
-            R.id.fl_main, SourceListFragment(),
+            R.id.fl_main, SourceListFragment.newInstance(categoryName),
             isAddFragment = true
         )
     }

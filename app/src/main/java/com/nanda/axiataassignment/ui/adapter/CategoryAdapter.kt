@@ -34,7 +34,7 @@ class CategoryAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: NewsCategory) {
             with(itemView) {
-                textViewCategoryName.text = category.name
+                tvCategoryName.text = category.name
                 setOnClickListener {
                     listener.onCategorySelected(category.name)
                 }

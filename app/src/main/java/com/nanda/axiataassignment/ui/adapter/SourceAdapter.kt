@@ -36,7 +36,8 @@ class SourceAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(source: Source) {
             with(itemView) {
-                textViewSourceName.text = source.name
+                tvSourceName.text = source.name
+                tvDescription.text = source.description
                 setOnClickListener {
                     source.id?.let { id ->
                         listener.onSourceSelected(id)

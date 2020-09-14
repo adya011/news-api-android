@@ -1,8 +1,9 @@
 package com.nanda.axiataassignment.data.repository
 
-import com.nanda.axiataassignment.data.api.NewsApi
+import com.nanda.axiataassignment.data.model.ArticleResponse
+import com.nanda.axiataassignment.data.model.SourceResponse
 
-class NewsRepository(private val api: NewsApi) {
-    suspend fun getArticles() = api.getArticles()
-    suspend fun getSources() = api.getSources()
+interface NewsRepository {
+    suspend fun getArticles(sources: String? = null): ArticleResponse
+    suspend fun getSources(category: String? = null): SourceResponse
 }
