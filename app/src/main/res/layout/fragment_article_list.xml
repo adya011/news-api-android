@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.article.ArticleListFragment">
 
-    <com.nanda.axiataassignment.ui.view.article.ArticleList
+    <com.nanda.archmvi2.ui.view.article.ArticleList
         android:id="@+id/rvArticle"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
